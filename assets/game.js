@@ -1,5 +1,6 @@
-const question = document.getElementById('question');
-const choices = Array.from(document.getElementsByClassName('choice-text'));
+const question = document.getElementById("question");
+const choices = Array.from(document.getElementsByClassName("choice-text"));
+const scoreText = document.getElementById("score");
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -58,7 +59,46 @@ let questions = [
     }
 ]
 
-const CORRECT_BONUS = 10;
+function submitQuiz() {
+    // Your quiz submission code here
+  
+    // Store the score in localStorage
+    localStorage.setItem("quizScore", quizScore);
+};
+
+function startTimer(duration, display) {
+    let timer = duration, minutes, seconds;
+    let countdown = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+  
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+  
+        display.textContent = minutes + ":" + seconds;
+  
+        if (--timer < 0) {
+            clearInterval(countdown);
+            display.textContent = "00:00";
+            window.location.href = "end.html"; // change the URL to the new page
+        }
+    }, 1000);
+  };
+  
+  window.onload = function () {
+    let oneMinute = 60,
+        display = document.querySelector('#timer');
+    startTimer(oneMinute, display);
+  };
+  
+  window.onload = function () {
+    let oneMinute = 60,
+        display = document.querySelector('#timer');
+    startTimer(oneMinute, display);
+  };
+  
+
+const correctBonus = 10;
 const maxQuestions = 6;
 
 startGame = () => {
@@ -70,7 +110,8 @@ startGame = () => {
 
 getNewQuestion = () => {
     if (availableQuesions.length === 0 || questionCounter >= maxQuestions) {
-        return window.location.assign('/end.html');
+        localStorage.setItem("mostRecentScore", score);
+        return window.location.assign("/end.html");
     }
     questionCounter++;
     const questionIndex = Math.floor(Math.random() * availableQuesions.length);
@@ -78,8 +119,8 @@ getNewQuestion = () => {
     question.innerText = currentQuestion.question;
 
     choices.forEach((choice) => {
-        const number = choice.dataset['number'];
-        choice.innerText = currentQuestion['choice' + number];
+        const number = choice.dataset["number"];
+        choice.innerText = currentQuestion["choice" + number];
     });
 
     availableQuesions.splice(questionIndex, 1);
@@ -87,14 +128,31 @@ getNewQuestion = () => {
 };
 
 choices.forEach((choice) => {
-    choice.addEventListener('click', (e) => {
+    choice.addEventListener("click", (e) => {
         if (!acceptingAnswers) return;
 
         acceptingAnswers = false;
         const selectedChoice = e.target;
-        const selectedAnswer = selectedChoice.dataset['number'];
-        getNewQuestion();
+        const selectedAnswer = selectedChoice.dataset["number"];
+
+        const classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+
+        if (classToApply === "correct") {
+            incrementScore(correctBonus);
+        }
+        
+        selectedChoice.parentElement.classList.add(classToApply);
+
+        setTimeout(() => {
+            selectedChoice.parentElement.classList.remove(classToApply);
+            getNewQuestion();
+          }, 1000);
     });
 });
+
+incrementScore = num => {
+    score += num;
+    scoreText.innerText = score;
+}
 
 startGame();
