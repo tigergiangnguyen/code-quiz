@@ -6,21 +6,17 @@ https://tigergiangnguyen.github.io/code-quiz/
 
 ## Description
 
+For this weeks assignment, the instructions was to make a coding quiz and follow the acceptance criteria. This assigment didn't have a starter code therefore, the code is made from our knowledge and apply in class exercises. I didn't fully grasp the content using JavaScript and apply it to the assignment. To understand how to structure quiz and use HTML, CSS, and JavaScript. I used tutorial videos to have a starting point and convert any code to needed to applies to acceptance criteria. Adding comments to each functions helps me learn exactly what is it doing to the page.
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+## Screenshot of the Deloyed Application
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+![alt text](assets/screenshot.jpg)
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+1. After the user clicks on "Start", the page will change windows into the main game where the user will see a timer, a score for each question the user gets correct, and the question with mutiple choices.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README using the following syntax:
-
-![alt text](assets/images/screenshot.png)
+2. When the user answers the question correct, the button that they have chosen will turn green and the score will add 10 points then will have a small delay before moving to the next question. If the user answers the question wrong, the button chosen will turn red and the score will stay the same.
 
 ## Credits
 

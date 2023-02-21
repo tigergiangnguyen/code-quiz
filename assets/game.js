@@ -130,23 +130,24 @@ getNewQuestion = () => {
     acceptingAnswers = true;
 };
 
-//
+// Contain DOM elements representing answers to a multiple choice question
 choices.forEach((choice) => {
     choice.addEventListener("click", (e) => {
         if (!acceptingAnswers) return;
-
+        // Prevent the user from selecting another answer before the next answer displays
         acceptingAnswers = false;
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset["number"];
-
         const classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
-
+        
+        // If answered correct, increment the user score
         if (classToApply === "correct") {
             incrementScore(correctBonus);
         }
         
         selectedChoice.parentElement.classList.add(classToApply);
 
+        // Pause before moving to the next question
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
             getNewQuestion();
@@ -154,6 +155,7 @@ choices.forEach((choice) => {
     });
 });
 
+// Displaying the new score in an HTML element
 incrementScore = num => {
     score += num;
     scoreText.innerText = score;
