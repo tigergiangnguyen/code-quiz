@@ -8,6 +8,7 @@ let score = 0;
 let questionCounter = 0;
 let availableQuesions = [];
 
+// The questions and mutiple choices the user will see and answer
 let questions = [
     {
         question: "What do we store multiple items in with javascript?",
@@ -101,6 +102,7 @@ function startTimer(duration, display) {
 const correctBonus = 10;
 const maxQuestions = 6;
 
+// Copy the questions array added
 startGame = () => {
     questionCounter = 0;
     score = 0;
@@ -108,6 +110,7 @@ startGame = () => {
     getNewQuestion();
 };
 
+// The function selects a random question then applys it on screen. The question that was already answered will not show up in the same array due to prevent duplications.
 getNewQuestion = () => {
     if (availableQuesions.length === 0 || questionCounter >= maxQuestions) {
         localStorage.setItem("mostRecentScore", score);
@@ -127,6 +130,7 @@ getNewQuestion = () => {
     acceptingAnswers = true;
 };
 
+//
 choices.forEach((choice) => {
     choice.addEventListener("click", (e) => {
         if (!acceptingAnswers) return;
